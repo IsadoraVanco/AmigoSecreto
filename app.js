@@ -65,6 +65,7 @@ function adicionarAmigo() {
         nome = capitalizarTexto(nome);
         inserirOrdenado(amigos, nome);
         campoNome.value = "";
+        campoNome.focus();
         
         atualizarLista();
     }
