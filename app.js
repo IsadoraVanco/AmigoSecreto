@@ -1,6 +1,6 @@
 let amigos = [];
 
-// ***********************************
+// ********** FUNÇÕES ************************************
 
 function adicionarAmigo() {
     let campoNome = document.getElementById('amigo');
@@ -13,5 +13,23 @@ function adicionarAmigo() {
     }else{
         amigos.push(nome);
         campoNome.value = "";
+
+        atualizarLista();
     }
+}
+
+function atualizarLista() {
+    let campoLista = document.getElementById('listaAmigos');
+    
+    campoLista.innerHTML = "";
+    
+    let elementosLista = "";
+    let contador = 0;
+
+    while(contador < amigos.length){
+        elementosLista += `<li>${amigos[contador]}</li>`;
+        contador++;
+    }
+
+    campoLista.innerHTML = elementosLista;
 }
