@@ -33,3 +33,16 @@ function atualizarLista() {
 
     campoLista.innerHTML = elementosLista;
 }
+
+function sortearAmigo() {
+    if(amigos == ""){
+        return;
+    }
+
+    let indice = Math.floor(Math.random() * amigos.length);
+    let nomeSorteado = amigos[indice];
+
+    let campoResultado = document.getElementById('resultado');
+    
+    campoResultado.innerHTML = nomeSorteado;
+}
