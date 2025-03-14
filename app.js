@@ -1,4 +1,24 @@
 /**
+ * @brief Capitaliza (deixa a primeira letra maiúscula e o resto minúsculo) cada palavra de um texto
+ * @param texto O texto a ser capitalizado
+ * @returns O texto capitalizado
+ */
+function capitalizarTexto(texto) {
+    let simbolos = /[\.\+ ,!?:;'_-]+/;
+    let palavras = texto.split(simbolos);
+
+    let contador = 0;
+    while(contador < palavras.length){
+        palavras[contador] = palavras[contador].charAt(0).toUpperCase() + palavras[contador].slice(1).toLowerCase();
+
+        contador++;
+    }
+
+    let textoAtualizado = palavras.join(" ");
+    return textoAtualizado;
+}
+
+/**
  * @brief Insere um elemento no array de forma ordenada, sem repetir elementos
  * @param array O array que será atualizado
  * @param elemento O elemento que será inserido
@@ -39,11 +59,10 @@ function adicionarAmigo() {
     let campoNome = document.getElementById('amigo');
     let nome = campoNome.value;
     
-    console.log(`Amigo '${nome}'`);
-    
     if(nome == ''){
         alert("Por favor, insira um nome");
     }else{
+        nome = capitalizarTexto(nome);
         inserirOrdenado(amigos, nome);
         campoNome.value = "";
         
