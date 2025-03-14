@@ -60,7 +60,7 @@ function adicionarAmigo() {
     let nome = campoNome.value;
     
     if(nome == ''){
-        alert("Por favor, insira um nome");
+        alert("Por favor, insira um nome.");
     }else{
         nome = capitalizarTexto(nome);
         inserirOrdenado(amigos, nome);
@@ -94,7 +94,8 @@ function atualizarLista() {
  * @brief Sorteia um amigo que está na lista
  */
 function sortearAmigo() {
-    if(amigos == ""){
+    if(amigos.length == 0){
+        alert("Não há nomes inseridos na lista!");
         return;
     }
     
@@ -103,7 +104,7 @@ function sortearAmigo() {
     
     let campoResultado = document.getElementById('resultado');
     
-    campoResultado.innerHTML = nomeSorteado;
+    campoResultado.innerHTML = `O amigo secreto sorteado é: ${nomeSorteado}`;
 }
 
 // ***********************************************************
