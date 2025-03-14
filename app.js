@@ -1,4 +1,38 @@
 /**
+ * @brief Insere um elemento no array de forma ordenada, sem repetir elementos
+ * @param array O array que será atualizado
+ * @param elemento O elemento que será inserido
+ */
+function inserirOrdenado(array, elemento) {
+    // Primeiro elemento
+    if(array.length == 0){
+        array.push(elemento);
+    }else{
+        let contador = 0;
+
+        while(contador < array.length){
+            let relacao = array[contador].localeCompare(elemento);
+            
+            if(relacao > 0){
+                // Insere a frente do elemento do contador
+                array.splice(contador, 0, elemento);
+                break;
+            }else if(relacao == 0){
+                // Elementos iguais
+                break;
+            }
+    
+            contador++;
+        }
+
+        // Insere no fim
+        if(contador == array.length){
+            array.push(elemento);
+        }
+    }
+}
+
+/**
  * @brief Adiciona um amigo na lista
  */
 function adicionarAmigo() {
@@ -10,7 +44,7 @@ function adicionarAmigo() {
     if(nome == ''){
         alert("Por favor, insira um nome");
     }else{
-        amigos.push(nome);
+        inserirOrdenado(amigos, nome);
         campoNome.value = "";
         
         atualizarLista();
