@@ -109,24 +109,57 @@ function iniciarSorteio() {
     // Deixa o botão de sortear visível
     let botaoSortear = document.getElementById('botaoSortear');
     botaoSortear.removeAttribute("disabled");
-
+    
     // Deixa o botão de iniciar invisível
     let botaoIniciar = document.getElementById('botaoIniciar');
     botaoIniciar.disabled = true;
+
+    mostrarAmigosRestantes();
+}
+
+/**
+ * @brief Mostra a quantidade de amigos restantes para sortear
+*/
+function mostrarAmigosRestantes() {
+    let campoRestantes = document.getElementById('amigosRestantes');
+    let mensagem = "";
+    
+    if(amigos.length > 0){
+        mensagem = `Amigos restantes: ${amigos.length}`;
+    }else{
+        mensagem = `Todos os amigos já foram sorteados!`;
+    }
+    
+    campoRestantes.innerHTML = mensagem;
 }
 
 /**
  * @brief Sorteia um amigo que está na lista
- */
+*/
 function sortearAmigo() {
     let indice = Math.floor(Math.random() * amigos.length);
     let nomeSorteado = amigos[indice];
     
+    // Mostra o resultado
     let campoResultado = document.getElementById('resultado');
-    
     campoResultado.innerHTML = `O amigo secreto sorteado é: ${nomeSorteado}`;
+    
+    // Adiciona os nomes em sorteados
+    inserirOrdenado(sorteados, nomeSorteado);
+    
+    // Retira da lista de amigos
+    amigos.splice(indice, 1);
+    
+    mostrarAmigosRestantes();
+    
+    if(amigos.length == 0){
+        // Desativa o botão de sortear
+        let botaoSortear = document.getElementById('botaoSortear');
+        botaoSortear.disabled = true;
+    }
 }
 
 // ***********************************************************
 
 let amigos = [];
+let sorteados = [];
