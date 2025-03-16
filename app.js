@@ -55,9 +55,7 @@ function inserirOrdenado(array, elemento) {
 /**
  * @brief Atualiza a lista visível de amigos que serão sorteados
  */
-function atualizarLista() {
-    esconderMensagem();
-    
+function atualizarLista() {    
     let campoLista = document.getElementById('listaAmigos');
     campoLista.innerHTML = "";
     
@@ -73,15 +71,6 @@ function atualizarLista() {
 }
 
 /**
- * @brief Mostra uma mensagem de alerta
- * @param mensagem A mensagem a ser mostrada
-*/
-function mostrarMensagem(mensagem) {
-    let campoMensagens = document.getElementById('mensagens');
-    campoMensagens.innerHTML = mensagem;
-}
-
-/**
  * @brief Esconde a mensagem de alerta
 */
 function esconderMensagem() {
@@ -90,11 +79,21 @@ function esconderMensagem() {
 }
 
 /**
+ * @brief Mostra uma mensagem de alerta
+ * @param mensagem A mensagem a ser mostrada
+*/
+function mostrarMensagem(mensagem) {
+    let campoMensagens = document.getElementById('mensagens');
+    campoMensagens.innerHTML = mensagem;
+
+    let tempoSegundosEspera = 3 * 1000;
+    setTimeout(esconderMensagem, tempoSegundosEspera);
+}
+
+/**
  * @brief Adiciona um amigo na lista
 */
-function adicionarAmigo() {
-    esconderMensagem();
-    
+function adicionarAmigo() {    
     let campoNome = document.getElementById('amigo');
     let nome = campoNome.value;
     
@@ -139,8 +138,6 @@ function esconderAmigosRestantes() {
  * @brief Inicia o sorteio dos amigos adicionados
 */
 function iniciarSorteio() {
-    esconderMensagem();
-    
     if(amigos.length == 0){
         mostrarMensagem("Não há nomes inseridos na lista!");
         return;
@@ -190,8 +187,6 @@ function esconderResultado() {
  * @brief Sorteia um amigo que está na lista
 */
 function sortearAmigo() {
-    esconderMensagem();
-
     let indice = Math.floor(Math.random() * amigos.length);
     let nomeSorteado = amigos[indice];
     
@@ -217,8 +212,6 @@ function sortearAmigo() {
  * @brief Reinicia o sorteio dos amigos adicionados
 */
 function reiniciarSorteio() {
-    esconderMensagem();
-    
     // Adiciona todos os elementos sorteados de volta
     while(sorteados.length > 0){
         inserirOrdenado(amigos, sorteados[0]);
