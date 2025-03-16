@@ -134,6 +134,23 @@ function mostrarAmigosRestantes() {
 }
 
 /**
+ * @brief Mostra o resultado do nome sorteado
+ * @param nome O nome sorteado
+ */
+function mostrarResultado(nome) {
+    let campoResultado = document.getElementById('resultado');
+    campoResultado.innerHTML = `O amigo secreto sorteado é: ${nome}`;
+}
+
+/**
+ * @brief Esconde o resultado do nome sorteado
+ */
+function esconderResultado() {
+    let campoResultado = document.getElementById('resultado');
+    campoResultado.innerHTML = "";
+}
+
+/**
  * @brief Sorteia um amigo que está na lista
 */
 function sortearAmigo() {
@@ -141,8 +158,7 @@ function sortearAmigo() {
     let nomeSorteado = amigos[indice];
     
     // Mostra o resultado
-    let campoResultado = document.getElementById('resultado');
-    campoResultado.innerHTML = `O amigo secreto sorteado é: ${nomeSorteado}`;
+    mostrarResultado(nomeSorteado);
     
     // Adiciona os nomes em sorteados
     inserirOrdenado(sorteados, nomeSorteado);
