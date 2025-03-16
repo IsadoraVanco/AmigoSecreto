@@ -132,17 +132,34 @@ button {
     background-color: #a8a59e;
 }
 
+/* Textos */
+p {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    margin: 15px 0;
+    color: var(--color-text);
+}
+
+.texto-mensagens {
+    color: #e91b1b;
+    font-weight: 600;
+}
+
+.texto-restantes {
+    margin: 20px 0;
+}
+
 /* Listas */
 ul {
     list-style-type: disc;
     color: var(--color-text);
     font-family: "Inter", sans-serif;
     font-size: 18px;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .result-list {
-    margin-top: 15px;
+    margin: 5px 0;
     color: #05DF05;
     font-size: 22px;
     font-weight: bold;
