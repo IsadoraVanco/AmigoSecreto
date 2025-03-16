@@ -56,6 +56,8 @@ function inserirOrdenado(array, elemento) {
  * @brief Atualiza a lista visível de amigos que serão sorteados
  */
 function atualizarLista() {
+    esconderMensagem();
+    
     let campoLista = document.getElementById('listaAmigos');
     campoLista.innerHTML = "";
     
@@ -71,14 +73,33 @@ function atualizarLista() {
 }
 
 /**
+ * @brief Mostra uma mensagem de alerta
+ * @param mensagem A mensagem a ser mostrada
+*/
+function mostrarMensagem(mensagem) {
+    let campoMensagens = document.getElementById('mensagens');
+    campoMensagens.innerHTML = mensagem;
+}
+
+/**
+ * @brief Esconde a mensagem de alerta
+*/
+function esconderMensagem() {
+    let campoMensagens = document.getElementById('mensagens');
+    campoMensagens.innerHTML = "";
+}
+
+/**
  * @brief Adiciona um amigo na lista
- */
+*/
 function adicionarAmigo() {
+    esconderMensagem();
+    
     let campoNome = document.getElementById('amigo');
     let nome = campoNome.value;
     
     if(nome == ''){
-        alert("Por favor, insira um nome.");
+        mostrarMensagem("Por favor, insira um nome.");
     }else{
         nome = capitalizarTexto(nome);
         inserirOrdenado(amigos, nome);
@@ -88,6 +109,7 @@ function adicionarAmigo() {
         atualizarLista();
     }
 }
+
 
 /**
  * @brief Mostra a quantidade de amigos restantes para sortear
@@ -107,7 +129,7 @@ function mostrarAmigosRestantes() {
 
 /**
  * @brief Esconde a quantidade de amigos restantes
- */
+*/
 function esconderAmigosRestantes() {
     let campoRestantes = document.getElementById('amigosRestantes');
     campoRestantes.innerHTML = "";
@@ -115,10 +137,12 @@ function esconderAmigosRestantes() {
 
 /**
  * @brief Inicia o sorteio dos amigos adicionados
- */
+*/
 function iniciarSorteio() {
+    esconderMensagem();
+    
     if(amigos.length == 0){
-        alert("Não há nomes inseridos na lista!");
+        mostrarMensagem("Não há nomes inseridos na lista!");
         return;
     }
     
@@ -129,7 +153,7 @@ function iniciarSorteio() {
     // Deixa o botão de adicionar desativado
     let botaoAdicionar = document.getElementById('adicionarAmigo');
     botaoAdicionar.disabled = true;
-
+    
     // Deixa o botão de sortear visível
     let botaoSortear = document.getElementById('botaoSortear');
     botaoSortear.removeAttribute("disabled");
@@ -148,7 +172,7 @@ function iniciarSorteio() {
 /**
  * @brief Mostra o resultado do nome sorteado
  * @param nome O nome sorteado
- */
+*/
 function mostrarResultado(nome) {
     let campoResultado = document.getElementById('resultado');
     campoResultado.innerHTML = `O amigo secreto sorteado é: ${nome}`;
@@ -156,7 +180,7 @@ function mostrarResultado(nome) {
 
 /**
  * @brief Esconde o resultado do nome sorteado
- */
+*/
 function esconderResultado() {
     let campoResultado = document.getElementById('resultado');
     campoResultado.innerHTML = "";
@@ -166,6 +190,8 @@ function esconderResultado() {
  * @brief Sorteia um amigo que está na lista
 */
 function sortearAmigo() {
+    esconderMensagem();
+
     let indice = Math.floor(Math.random() * amigos.length);
     let nomeSorteado = amigos[indice];
     
@@ -191,6 +217,8 @@ function sortearAmigo() {
  * @brief Reinicia o sorteio dos amigos adicionados
 */
 function reiniciarSorteio() {
+    esconderMensagem();
+    
     // Adiciona todos os elementos sorteados de volta
     while(sorteados.length > 0){
         inserirOrdenado(amigos, sorteados[0]);
