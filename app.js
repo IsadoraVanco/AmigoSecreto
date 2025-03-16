@@ -167,20 +167,24 @@ function iniciarSorteio() {
 }
 
 /**
+ * @brief Esconde o resultado do nome sorteado
+*/
+function esconderResultado() {
+    let campoResultado = document.getElementById('resultado');
+    campoResultado.innerHTML = "";
+}
+
+/**
  * @brief Mostra o resultado do nome sorteado
  * @param nome O nome sorteado
 */
 function mostrarResultado(nome) {
     let campoResultado = document.getElementById('resultado');
     campoResultado.innerHTML = `O amigo secreto sorteado é: ${nome}`;
-}
 
-/**
- * @brief Esconde o resultado do nome sorteado
-*/
-function esconderResultado() {
-    let campoResultado = document.getElementById('resultado');
-    campoResultado.innerHTML = "";
+    // Esconde o resultado depois de um tempo
+    let tempoSegundosEspera = 5 * 1000;
+    setTimeout(esconderResultado, tempoSegundosEspera);
 }
 
 /**
