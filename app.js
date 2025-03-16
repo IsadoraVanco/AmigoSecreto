@@ -138,6 +138,8 @@ function esconderAmigosRestantes() {
  * @brief Inicia o sorteio dos amigos adicionados
 */
 function iniciarSorteio() {
+    esconderMensagem();
+    
     if(amigos.length == 0){
         mostrarMensagem("Não há nomes inseridos na lista!");
         return;
