@@ -90,6 +90,30 @@ function adicionarAmigo() {
 }
 
 /**
+ * @brief Mostra a quantidade de amigos restantes para sortear
+*/
+function mostrarAmigosRestantes() {
+    let campoRestantes = document.getElementById('amigosRestantes');
+    let mensagem = "";
+    
+    if(amigos.length > 0){
+        mensagem = `Amigos restantes: ${amigos.length}`;
+    }else{
+        mensagem = `Todos os amigos já foram sorteados!`;
+    }
+    
+    campoRestantes.innerHTML = mensagem;
+}
+
+/**
+ * @brief Esconde a quantidade de amigos restantes
+ */
+function esconderAmigosRestantes() {
+    let campoRestantes = document.getElementById('amigosRestantes');
+    campoRestantes.innerHTML = "";
+}
+
+/**
  * @brief Inicia o sorteio dos amigos adicionados
  */
 function iniciarSorteio() {
@@ -115,22 +139,6 @@ function iniciarSorteio() {
     botaoIniciar.disabled = true;
 
     mostrarAmigosRestantes();
-}
-
-/**
- * @brief Mostra a quantidade de amigos restantes para sortear
-*/
-function mostrarAmigosRestantes() {
-    let campoRestantes = document.getElementById('amigosRestantes');
-    let mensagem = "";
-    
-    if(amigos.length > 0){
-        mensagem = `Amigos restantes: ${amigos.length}`;
-    }else{
-        mensagem = `Todos os amigos já foram sorteados!`;
-    }
-    
-    campoRestantes.innerHTML = mensagem;
 }
 
 /**
