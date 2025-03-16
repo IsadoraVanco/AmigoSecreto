@@ -134,6 +134,10 @@ function iniciarSorteio() {
     let botaoSortear = document.getElementById('botaoSortear');
     botaoSortear.removeAttribute("disabled");
     
+    // Deixa o botão de reiniciar visível
+    let botaoReiniciar = document.getElementById('botaoReiniciar');
+    botaoReiniciar.removeAttribute("disabled");
+    
     // Deixa o botão de iniciar invisível
     let botaoIniciar = document.getElementById('botaoIniciar');
     botaoIniciar.disabled = true;
@@ -181,6 +185,40 @@ function sortearAmigo() {
         let botaoSortear = document.getElementById('botaoSortear');
         botaoSortear.disabled = true;
     }
+}
+
+/**
+ * @brief Reinicia o sorteio dos amigos adicionados
+*/
+function reiniciarSorteio() {
+    // Adiciona todos os elementos sorteados de volta
+    while(sorteados.length > 0){
+        inserirOrdenado(amigos, sorteados[0]);
+        sorteados.splice(0, 1);
+    }
+    
+    // Mostra a lista de amigos
+    atualizarLista();
+
+    // Esconde a lista de amigos restantes e resultado
+    esconderAmigosRestantes();
+    esconderResultado();
+    
+    // Desativa o botão de reiniciar
+    let botaoReiniciar = document.getElementById('botaoReiniciar');
+    botaoReiniciar.disabled = true;
+    
+    // Desativa o botão de sortear
+    let botaoSortear = document.getElementById('botaoSortear');
+    botaoSortear.disabled = true;
+    
+    // Ativa o botão de iniciar sorteio
+    let botaoIniciar = document.getElementById('botaoIniciar');
+    botaoIniciar.removeAttribute("disabled");
+    
+    // Ativa o botão de adicionar
+    let botaoAdicionar = document.getElementById('adicionarAmigo');
+    botaoAdicionar.removeAttribute("disabled");
 }
 
 // ***********************************************************
