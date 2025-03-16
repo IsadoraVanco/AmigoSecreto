@@ -160,6 +160,7 @@ ul {
     font-size: 16px;
     font-weight: 600;
     height: 59px;
+    max-width: 230px;
 }
 
 .button-draw img {
