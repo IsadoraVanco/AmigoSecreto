@@ -121,6 +121,10 @@ function mostrarAmigosRestantes() {
         mensagem = `Amigos restantes: ${amigos.length}`;
     }else{
         mensagem = `Todos os amigos já foram sorteados!`;
+
+        // Desativa o botão de sortear
+        let botaoSortear = document.getElementById('botaoSortear');
+        botaoSortear.disabled = true;
     }
     
     campoRestantes.innerHTML = mensagem;
@@ -192,26 +196,26 @@ function mostrarResultado(nome) {
 /**
  * @brief Sorteia um amigo que está na lista
 */
-function sortearAmigo() {
+function fazerSorteio() {
     let indice = Math.floor(Math.random() * amigos.length);
-    let nomeSorteado = amigos[indice];
-    
-    // Mostra o resultado
-    mostrarResultado(nomeSorteado);
+    amigoSorteado = amigos[indice];
     
     // Adiciona os nomes em sorteados
-    inserirOrdenado(sorteados, nomeSorteado);
+    inserirOrdenado(sorteados, amigoSorteado);
     
     // Retira da lista de amigos
     amigos.splice(indice, 1);
+}
+
+/**
+ * @brief Realiza o sorteio de um amigo e mostra os resultados
+ */
+function sortearAmigo() {
+    fazerSorteio();
     
+    // Mostra o resultado
+    mostrarResultado(amigoSorteado);
     mostrarAmigosRestantes();
-    
-    if(amigos.length == 0){
-        // Desativa o botão de sortear
-        let botaoSortear = document.getElementById('botaoSortear');
-        botaoSortear.disabled = true;
-    }
 }
 
 /**
@@ -252,3 +256,4 @@ function reiniciarSorteio() {
 
 let amigos = [];
 let sorteados = [];
+let amigoSorteado = "";
