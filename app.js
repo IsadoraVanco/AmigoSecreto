@@ -1,3 +1,5 @@
+// ****** TEXTO *****************************************************
+
 /**
  * @brief Capitaliza (deixa a primeira letra maiúscula e o resto minúsculo) cada palavra de um texto
  * @param texto O texto a ser capitalizado
@@ -13,10 +15,12 @@ function capitalizarTexto(texto) {
         
         contador++;
     }
-
+    
     let textoAtualizado = palavras.join(" ");
     return textoAtualizado;
 }
+
+// ****** ARRAYS *****************************************************
 
 /**
  * @brief Remove um elemento do array
@@ -47,7 +51,7 @@ function inserirOrdenado(array, elemento) {
         array.push(elemento);
     }else{
         let contador = 0;
-
+        
         while(contador < array.length){
             let relacao = array[contador].localeCompare(elemento);
             
@@ -70,23 +74,27 @@ function inserirOrdenado(array, elemento) {
     }
 }
 
+// ****** SORTEIOS *****************************************************
+
 /**
- * @brief Atualiza a lista visível de amigos que serão sorteados
- */
-function atualizarLista() {    
-    let campoLista = document.getElementById('listaAmigos');
-    campoLista.innerHTML = "";
+ * @brief Sorteia um amigo que está na lista
+*/
+function fazerSorteio() {
+    let indice = Math.floor(Math.random() * amigos.length);
+    amigoSorteado = amigos[indice];
     
-    let elementosLista = "";
-    let contador = 0;
+    // Adiciona os nomes em sorteados
+    inserirOrdenado(sorteados, amigoSorteado);
     
-    while(contador < amigos.length){
-        elementosLista += `<li>${amigos[contador]}</li>`;
-        contador++;
-    }
-    
-    campoLista.innerHTML = elementosLista;
+    // Retira da lista de amigos
+    amigos.splice(indice, 1);
 }
+
+// ****************************************************************************
+// ****** CAMPOS VISIVEIS *****************************************************
+// ****************************************************************************
+
+// ****** MENSAGEM DE ALERTA *****************************************************
 
 /**
  * @brief Esconde a mensagem de alerta
@@ -103,28 +111,80 @@ function esconderMensagem() {
 function mostrarMensagem(mensagem) {
     let campoMensagens = document.getElementById('mensagens');
     campoMensagens.innerHTML = mensagem;
-
+    
     let tempoSegundosEspera = 3 * 1000;
     setTimeout(esconderMensagem, tempoSegundosEspera);
 }
 
+// ****** LISTA VISIVEL *****************************************************
+
 /**
- * @brief Adiciona um amigo na lista
+ * @brief Atualiza a lista visível de amigos que serão sorteados
 */
-function adicionarAmigo() {    
-    let campoNome = document.getElementById('amigo');
-    let nome = campoNome.value;
+function atualizarLista() {    
+    let campoLista = document.getElementById('listaAmigos');
+    campoLista.innerHTML = "";
     
-    if(nome == ''){
-        mostrarMensagem("Por favor, insira um nome.");
-    }else{
-        nome = capitalizarTexto(nome);
-        inserirOrdenado(amigos, nome);
-        campoNome.value = "";
-        campoNome.focus();
-        
-        atualizarLista();
+    let elementosLista = "";
+    let contador = 0;
+    
+    while(contador < amigos.length){
+        elementosLista += `<li>${amigos[contador]}</li>`;
+        contador++;
     }
+    
+    campoLista.innerHTML = elementosLista;
+}
+
+// ****** RESULTADO DO SORTEIO *****************************************************
+
+/**
+ * @brief Esconde o resultado do nome sorteado
+*/
+function esconderResultado() {
+    // Limpa o campo de resultado
+    let campoResultado = document.getElementById('resultado');
+    campoResultado.innerHTML = "";
+    
+    // Desativa o botão de resortear
+    let botaoResortear = document.getElementById('botaoResortear');
+    botaoResortear.disabled = true;
+    
+    // Desativa o botão de confirmar
+    let botaoConfirmar = document.getElementById('botaoConfirmar');
+    botaoConfirmar.disabled = true;
+}
+
+/**
+ * @brief Mostra o resultado do nome sorteado
+ * @param nome O nome sorteado
+*/
+function mostrarResultado(nome) {
+    // Mostra o resultado
+    let campoResultado = document.getElementById('resultado');
+    campoResultado.innerHTML = `O amigo secreto sorteado é: <strong>${nome}</strong>`;
+    
+    let botaoResortear = document.getElementById('botaoResortear');
+    if(amigos.length <= 0){
+        // Desativa o botão de resortear
+        botaoResortear.disabled = true;
+    }else{
+        botaoResortear.removeAttribute("disabled");
+    }
+    
+    // Mostra o botão de confirmar
+    let botaoConfirmar = document.getElementById('botaoConfirmar');
+    botaoConfirmar.removeAttribute("disabled");
+}
+
+// ****** AMIGOS RESTANTES *****************************************************
+
+/**
+ * @brief Esconde a quantidade de amigos restantes
+*/
+function esconderAmigosRestantes() {
+    let campoRestantes = document.getElementById('amigosRestantes');
+    campoRestantes.innerHTML = "";
 }
 
 /**
@@ -147,12 +207,61 @@ function mostrarAmigosRestantes() {
     campoRestantes.innerHTML = mensagem;
 }
 
+// ******************************************************************************
+// ****** FUNÇÕES DE BOTÕES *****************************************************
+// ******************************************************************************
+
 /**
- * @brief Esconde a quantidade de amigos restantes
+ * @brief Adiciona um amigo na lista
 */
-function esconderAmigosRestantes() {
-    let campoRestantes = document.getElementById('amigosRestantes');
-    campoRestantes.innerHTML = "";
+function adicionarAmigo() {    
+    let campoNome = document.getElementById('amigo');
+    let nome = campoNome.value;
+    
+    if(nome == ''){
+        mostrarMensagem("Por favor, insira um nome.");
+    }else{
+        nome = capitalizarTexto(nome);
+        inserirOrdenado(amigos, nome);
+        campoNome.value = "";
+        campoNome.focus();
+        
+        atualizarLista();
+    }
+}
+
+/**
+ * @brief Faz o sorteio de um novo amigo, fazendo a reposição do sorteado anteriormente
+ */
+function resortearAmigo() {    
+    // Salva o nome e indice sorteados anteriormente
+    let sorteado = amigoSorteado;
+    
+    fazerSorteio();
+    
+    // Adiciona o sorteado anteriormente novamente
+    inserirOrdenado(amigos, sorteado);
+
+    // Retira o sorteado anteriormente da lista de sorteados
+    removerOrdenado(sorteados, sorteado);
+    
+    // Mostra o resultado
+    mostrarResultado(amigoSorteado);
+    mostrarAmigosRestantes();
+}
+
+/**
+ * @brief Confirma o resultado de um amigo sorteado
+ */
+function confirmarAmigo() {
+    // Esconde o resultado
+    esconderResultado();
+
+    // Ativa o botão de sortear novo amigo
+    if(amigos.length > 0){
+        let botaoSortear = document.getElementById('botaoSortear');
+        botaoSortear.removeAttribute("disabled");
+    }
 }
 
 /**
@@ -190,59 +299,6 @@ function iniciarSorteio() {
 }
 
 /**
- * @brief Esconde o resultado do nome sorteado
-*/
-function esconderResultado() {
-    // Limpa o campo de resultado
-    let campoResultado = document.getElementById('resultado');
-    campoResultado.innerHTML = "";
-
-    // Desativa o botão de resortear
-    let botaoResortear = document.getElementById('botaoResortear');
-    botaoResortear.disabled = true;
-    
-    // Desativa o botão de confirmar
-    let botaoConfirmar = document.getElementById('botaoConfirmar');
-    botaoConfirmar.disabled = true;
-}
-
-/**
- * @brief Mostra o resultado do nome sorteado
- * @param nome O nome sorteado
-*/
-function mostrarResultado(nome) {
-    // Mostra o resultado
-    let campoResultado = document.getElementById('resultado');
-    campoResultado.innerHTML = `O amigo secreto sorteado é: <strong>${nome}</strong>`;
-
-    let botaoResortear = document.getElementById('botaoResortear');
-    if(amigos.length <= 0){
-        // Desativa o botão de resortear
-        botaoResortear.disabled = true;
-    }else{
-        botaoResortear.removeAttribute("disabled");
-    }
-
-    // Mostra o botão de confirmar
-    let botaoConfirmar = document.getElementById('botaoConfirmar');
-    botaoConfirmar.removeAttribute("disabled");
-}
-
-/**
- * @brief Sorteia um amigo que está na lista
-*/
-function fazerSorteio() {
-    let indice = Math.floor(Math.random() * amigos.length);
-    amigoSorteado = amigos[indice];
-    
-    // Adiciona os nomes em sorteados
-    inserirOrdenado(sorteados, amigoSorteado);
-    
-    // Retira da lista de amigos
-    amigos.splice(indice, 1);
-}
-
-/**
  * @brief Realiza o sorteio de um amigo e mostra os resultados
  */
 function sortearAmigo() {
@@ -257,39 +313,6 @@ function sortearAmigo() {
     botaoSortear.disabled = true;
 }
 
-/**
- * @brief Faz o sorteio de um novo amigo, fazendo a reposição do sorteado anteriormente
- */
-function resortearAmigo() {    
-    // Salva o nome e indice sorteados anteriormente
-    let sorteado = amigoSorteado;
-    
-    fazerSorteio();
-    
-    // Adiciona o sorteado anteriormente novamente
-    inserirOrdenado(amigos, sorteado);
-
-    // Retira o sorteado anteriormente da lista de sorteados
-    removerOrdenado(sorteados, sorteado);
-    
-    // Mostra o resultado
-    mostrarResultado(amigoSorteado);
-    mostrarAmigosRestantes();
-}
-
-/**
- * @brief Confirma o resultado de um amigo sorteado
- */
-function confirmarAmigo() {
-    // Esconde o resultado
-    esconderResultado();
-
-    // Ativa o botão de sortear novo amigo
-    if(amigos.length > 0){
-        let botaoSortear = document.getElementById('botaoSortear');
-        botaoSortear.removeAttribute("disabled");
-    }
-}
 
 /**
  * @brief Reinicia o sorteio dos amigos adicionados
