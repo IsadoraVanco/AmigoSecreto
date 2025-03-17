@@ -2,7 +2,7 @@
  * @brief Capitaliza (deixa a primeira letra maiúscula e o resto minúsculo) cada palavra de um texto
  * @param texto O texto a ser capitalizado
  * @returns O texto capitalizado
- */
+*/
 function capitalizarTexto(texto) {
     let simbolos = /[\.\+ ,!?:;'_-]+/;
     let palavras = texto.split(simbolos);
@@ -10,7 +10,7 @@ function capitalizarTexto(texto) {
     let contador = 0;
     while(contador < palavras.length){
         palavras[contador] = palavras[contador].charAt(0).toUpperCase() + palavras[contador].slice(1).toLowerCase();
-
+        
         contador++;
     }
 
@@ -22,7 +22,7 @@ function capitalizarTexto(texto) {
  * @brief Remove um elemento do array
  * @param array O array a ser atualizado
  * @param elemento O elemento a ser retirado
- */
+*/
 function removerOrdenado(array, elemento) {
     let contador = 0;
 
@@ -127,7 +127,6 @@ function adicionarAmigo() {
     }
 }
 
-
 /**
  * @brief Mostra a quantidade de amigos restantes para sortear
 */
@@ -194,11 +193,17 @@ function iniciarSorteio() {
  * @brief Esconde o resultado do nome sorteado
 */
 function esconderResultado() {
+    // Limpa o campo de resultado
     let campoResultado = document.getElementById('resultado');
     campoResultado.innerHTML = "";
 
+    // Desativa o botão de resortear
     let botaoResortear = document.getElementById('botaoResortear');
     botaoResortear.disabled = true;
+    
+    // Desativa o botão de confirmar
+    let botaoConfirmar = document.getElementById('botaoConfirmar');
+    botaoConfirmar.disabled = true;
 }
 
 /**
@@ -206,8 +211,9 @@ function esconderResultado() {
  * @param nome O nome sorteado
 */
 function mostrarResultado(nome) {
+    // Mostra o resultado
     let campoResultado = document.getElementById('resultado');
-    campoResultado.innerHTML = `O amigo secreto sorteado é: ${nome}`;
+    campoResultado.innerHTML = `O amigo secreto sorteado é: <strong>${nome}</strong>`;
 
     let botaoResortear = document.getElementById('botaoResortear');
     if(amigos.length <= 0){
@@ -216,10 +222,10 @@ function mostrarResultado(nome) {
     }else{
         botaoResortear.removeAttribute("disabled");
     }
-    
-    // Esconde o resultado depois de um tempo
-    let tempoSegundosEspera = 5 * 1000;
-    setTimeout(esconderResultado, tempoSegundosEspera);
+
+    // Mostra o botão de confirmar
+    let botaoConfirmar = document.getElementById('botaoConfirmar');
+    botaoConfirmar.removeAttribute("disabled");
 }
 
 /**
@@ -245,6 +251,10 @@ function sortearAmigo() {
     // Mostra o resultado
     mostrarResultado(amigoSorteado);
     mostrarAmigosRestantes();
+
+    // Desativa botão de sortear
+    let botaoSortear = document.getElementById('botaoSortear');
+    botaoSortear.disabled = true;
 }
 
 /**
@@ -265,6 +275,20 @@ function resortearAmigo() {
     // Mostra o resultado
     mostrarResultado(amigoSorteado);
     mostrarAmigosRestantes();
+}
+
+/**
+ * @brief Confirma o resultado de um amigo sorteado
+ */
+function confirmarAmigo() {
+    // Esconde o resultado
+    esconderResultado();
+
+    // Ativa o botão de sortear novo amigo
+    if(amigos.length > 0){
+        let botaoSortear = document.getElementById('botaoSortear');
+        botaoSortear.removeAttribute("disabled");
+    }
 }
 
 /**
