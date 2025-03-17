@@ -94,6 +94,24 @@ function fazerSorteio() {
 // ****** CAMPOS VISIVEIS *****************************************************
 // ****************************************************************************
 
+/**
+ * @brief Esconde um elemento visível utilizando propriedades
+ * @param id O id do elemento
+ */
+function esconderElemento(id) {
+    let elemento = document.getElementById(id);
+    elemento.disabled = true;
+}
+
+/**
+ * @brief Mostra um elemento visível utilizando propriedades
+ * @param id O id do elemento
+*/
+function mostrarElemento(id) {
+    let elemento = document.getElementById(id);
+    elemento.removeAttribute("disabled");
+}
+
 // ****** MENSAGEM DE ALERTA *****************************************************
 
 /**
@@ -147,12 +165,10 @@ function esconderResultado() {
     campoResultado.innerHTML = "";
     
     // Desativa o botão de resortear
-    let botaoResortear = document.getElementById('botaoResortear');
-    botaoResortear.disabled = true;
+    esconderElemento('botaoResortear');
     
     // Desativa o botão de confirmar
-    let botaoConfirmar = document.getElementById('botaoConfirmar');
-    botaoConfirmar.disabled = true;
+    esconderElemento('botaoConfirmar');
 }
 
 /**
@@ -167,14 +183,14 @@ function mostrarResultado(nome) {
     let botaoResortear = document.getElementById('botaoResortear');
     if(amigos.length <= 0){
         // Desativa o botão de resortear
-        botaoResortear.disabled = true;
+        esconderElemento('botaoResortear');
     }else{
-        botaoResortear.removeAttribute("disabled");
+        // Ativa o botão de resortear
+        mostrarElemento('botaoResortear');
     }
     
     // Mostra o botão de confirmar
-    let botaoConfirmar = document.getElementById('botaoConfirmar');
-    botaoConfirmar.removeAttribute("disabled");
+    mostrarElemento('botaoConfirmar');
 }
 
 // ****** AMIGOS RESTANTES *****************************************************
@@ -200,8 +216,7 @@ function mostrarAmigosRestantes() {
         mensagem = `Todos os amigos já foram sorteados!`;
 
         // Desativa o botão de sortear
-        let botaoSortear = document.getElementById('botaoSortear');
-        botaoSortear.disabled = true;
+        esconderElemento('botaoSortear');
     }
     
     campoRestantes.innerHTML = mensagem;
@@ -259,8 +274,7 @@ function confirmarAmigo() {
 
     // Ativa o botão de sortear novo amigo
     if(amigos.length > 0){
-        let botaoSortear = document.getElementById('botaoSortear');
-        botaoSortear.removeAttribute("disabled");
+        mostrarElemento('botaoSortear');
     }
 }
 
@@ -279,21 +293,17 @@ function iniciarSorteio() {
     let campoLista = document.getElementById('listaAmigos');
     campoLista.innerHTML = "";
     
-    // Deixa o botão de adicionar desativado
-    let botaoAdicionar = document.getElementById('adicionarAmigo');
-    botaoAdicionar.disabled = true;
+    // Desativa o botão de adicionar amigo
+    esconderElemento('adicionarAmigo');
     
-    // Deixa o botão de sortear visível
-    let botaoSortear = document.getElementById('botaoSortear');
-    botaoSortear.removeAttribute("disabled");
+    // Desativa o botão de iniciar sorteio
+    esconderElemento('botaoIniciar');
     
-    // Deixa o botão de reiniciar visível
-    let botaoReiniciar = document.getElementById('botaoReiniciar');
-    botaoReiniciar.removeAttribute("disabled");
+    // Ativa o botão de sortear
+    mostrarElemento('botaoSortear');
     
-    // Deixa o botão de iniciar invisível
-    let botaoIniciar = document.getElementById('botaoIniciar');
-    botaoIniciar.disabled = true;
+    // Ativa o botão de reiniciar sorteio
+    mostrarElemento('botaoReiniciar');
 
     mostrarAmigosRestantes();
 }
@@ -309,8 +319,7 @@ function sortearAmigo() {
     mostrarAmigosRestantes();
 
     // Desativa botão de sortear
-    let botaoSortear = document.getElementById('botaoSortear');
-    botaoSortear.disabled = true;
+    esconderElemento('botaoSortear');
 }
 
 
@@ -332,20 +341,16 @@ function reiniciarSorteio() {
     esconderResultado();
     
     // Desativa o botão de reiniciar
-    let botaoReiniciar = document.getElementById('botaoReiniciar');
-    botaoReiniciar.disabled = true;
+    esconderElemento('botaoReiniciar');
     
     // Desativa o botão de sortear
-    let botaoSortear = document.getElementById('botaoSortear');
-    botaoSortear.disabled = true;
+    esconderElemento('botaoSortear');
     
     // Ativa o botão de iniciar sorteio
-    let botaoIniciar = document.getElementById('botaoIniciar');
-    botaoIniciar.removeAttribute("disabled");
+    mostrarElemento('botaoIniciar');
     
     // Ativa o botão de adicionar
-    let botaoAdicionar = document.getElementById('adicionarAmigo');
-    botaoAdicionar.removeAttribute("disabled");
+    mostrarElemento('adicionarAmigo');
 }
 
 // ***********************************************************
