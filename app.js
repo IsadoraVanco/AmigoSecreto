@@ -232,8 +232,9 @@ function mostrarAmigosRestantes() {
 function adicionarAmigo() {    
     let campoNome = document.getElementById('amigo');
     let nome = campoNome.value;
+    let expressao = /[A-Za-z][A-Za-z\. ]*$/;
     
-    if(nome == ''){
+    if(!expressao.test(nome)){
         mostrarMensagem("Por favor, insira um nome.");
     }else{
         nome = capitalizarTexto(nome);
