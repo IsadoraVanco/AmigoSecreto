@@ -94,6 +94,14 @@ body {
     gap: 5px;
 }
 
+.resultado-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    max-height: 70px;
+    align-items: center;
+}
+
 /* Estilos de entrada de texto */
 .input-title {
     flex: 1;
@@ -160,10 +168,34 @@ ul {
 
 .result-list {
     margin: 5px 0;
-    color: #05DF05;
     font-size: 22px;
     font-weight: bold;
     text-align: center;
+}
+
+.result-list strong {
+    color: #05DF05;
+}
+
+/* Botões pequenos */
+.button-mini {
+    display: flex;
+    align-items: center;
+    height: 40%;
+    max-width: 70px;
+    padding: 2px;
+    color: var(--color-white);
+    background-color: var(--color-button);
+    border-radius: 10px;
+}
+
+.button-mini img {
+    width: auto;
+    max-height: 100%;
+}
+
+.button-mini:disabled {
+    display: none;
 }
 
 /* Botão de sortear título */
