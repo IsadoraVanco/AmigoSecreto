@@ -19,6 +19,24 @@ function capitalizarTexto(texto) {
 }
 
 /**
+ * @brief Remove um elemento do array
+ * @param array O array a ser atualizado
+ * @param elemento O elemento a ser retirado
+ */
+function removerOrdenado(array, elemento) {
+    let contador = 0;
+
+    while(contador < array.length){
+        if(array[contador] == elemento){
+            array.splice(contador, 1);
+            break;
+        }
+
+        contador++;
+    }
+}
+
+/**
  * @brief Insere um elemento no array de forma ordenada, sem repetir elementos
  * @param array O array que será atualizado
  * @param elemento O elemento que será inserido
@@ -178,6 +196,9 @@ function iniciarSorteio() {
 function esconderResultado() {
     let campoResultado = document.getElementById('resultado');
     campoResultado.innerHTML = "";
+
+    let botaoResortear = document.getElementById('botaoResortear');
+    botaoResortear.disabled = true;
 }
 
 /**
@@ -188,6 +209,14 @@ function mostrarResultado(nome) {
     let campoResultado = document.getElementById('resultado');
     campoResultado.innerHTML = `O amigo secreto sorteado é: ${nome}`;
 
+    let botaoResortear = document.getElementById('botaoResortear');
+    if(amigos.length <= 0){
+        // Desativa o botão de resortear
+        botaoResortear.disabled = true;
+    }else{
+        botaoResortear.removeAttribute("disabled");
+    }
+    
     // Esconde o resultado depois de um tempo
     let tempoSegundosEspera = 5 * 1000;
     setTimeout(esconderResultado, tempoSegundosEspera);
@@ -212,6 +241,26 @@ function fazerSorteio() {
  */
 function sortearAmigo() {
     fazerSorteio();
+    
+    // Mostra o resultado
+    mostrarResultado(amigoSorteado);
+    mostrarAmigosRestantes();
+}
+
+/**
+ * @brief Faz o sorteio de um novo amigo, fazendo a reposição do sorteado anteriormente
+ */
+function resortearAmigo() {    
+    // Salva o nome e indice sorteados anteriormente
+    let sorteado = amigoSorteado;
+    
+    fazerSorteio();
+    
+    // Adiciona o sorteado anteriormente novamente
+    inserirOrdenado(amigos, sorteado);
+
+    // Retira o sorteado anteriormente da lista de sorteados
+    removerOrdenado(sorteados, sorteado);
     
     // Mostra o resultado
     mostrarResultado(amigoSorteado);

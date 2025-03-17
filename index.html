@@ -27,7 +27,12 @@
            
             <p id="mensagens" class="texto-mensagens"></p>
             <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
-            <ul id="resultado" class="result-list" aria-live="polite"></ul>
+            <div class="resultado-container">
+                <ul id="resultado" class="result-list" aria-live="polite"></ul>
+                <button id="botaoResortear" class="button-mini" onclick="resortearAmigo()" aria-label="Sortear amigo novamente" disabled>
+                    <img src="assets/rotate.png" alt="Ícone para repetir">
+                </button>
+            </div>
             <p id="amigosRestantes" class="texto-restantes"></p>
 
             <div class="button-container">
@@ -40,7 +45,7 @@
                     Sortear amigo
                 </button>
                 <button id="botaoReiniciar" class="button-draw" onclick="reiniciarSorteio()" aria-label="Reiniciar o sorteio de amigo" disabled>
-                    <img src="assets/replay.png" alt="Ícone para sortear">
+                    <img src="assets/replay.png" alt="Ícone para reiniciar">
                     Reiniciar sorteio
                 </button>
             </div>
